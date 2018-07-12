@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ${appName:gatewayServer}
+  cloud:
+    bus:
+      enabled: false
+    config:
+      enabled: false
+
+---
+spring:
+  profiles: refreshable
+  cloud:
+    bus:
+      enabled: true
+    config:
+      enabled: true
+      uri: http://localhost:8101
+endpoints:
+  refresh:
+    enabled: true
+
+  

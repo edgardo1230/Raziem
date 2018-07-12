@@ -1,0 +1,58 @@
+server:
+  port: ${appPort:8200}
+
+
+server.servlet-path: /
+# Actuator endpoint path (/admin/info, /admin/health, ...)
+management.context-path: /admin
+
+# http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints
+endpoints:
+  enabled: false
+  info:
+    enabled: true
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+
+info:
+  app:
+    name: @project.artifactId@
+  build:
+    version: @project.version@
+
+logging:
+  file: ./logs/gatewayServer.log
+  level:
+    org.springframework: WARN
+    org.hibernate: ERROR
+    com.raziem.api.gateway: INFO    
+    
+rabbitmq:
+  host: 192.168.56.210
+  port: 5672
+  virtual-host: /
+  username: amqp
+  password: amqp
+  
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+
+# ribbon.eureka.enabled: false
+zuul:
+  ignoredServices: "*"
+  routes:
+    zuulDemo1:
+      path: /zuul1/**
+# serviceId as registed with Eureka. Enabled and used when ribbon.eureka.enabled is true.
+      serviceId: demo-zuul-api1
+# zuul.routes.<the route>.url used when ribbon.eureka.enabled is false, serviceId is disabled.
+#      url: http://localhost:8600/
+# stripPrefix set to true if context path is set to /
+      stripPrefix: true
+

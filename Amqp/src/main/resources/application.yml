@@ -1,0 +1,13 @@
+
+rabbitmq:
+  host: 192.168.56.210
+  port: 5672
+  virtual-host: /
+  username: amqp
+  password: amqp
+logging:
+  file: ./logs/ampq.log
+  level:
+    org.springframework: WARN
+    org.hibernate: ERROR
+    com.raziem.amqp: INFO
